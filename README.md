@@ -2,6 +2,10 @@
 
 This repo is for a RPN Calculator Exercise.
 
+ - rpn.py implements core logic
+ - test_rpn.py implements unit tests with py.test
+ - api.py makes a simple web api with flask
+ - calc.py is a command line interface
 
 **Tasks**
 
