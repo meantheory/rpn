@@ -11,6 +11,8 @@ This repo is for a RPN Calculator Exercise.
 
  - [x] basic rpn implmentation
  - [x] interactive cli
+ - [x] make an alternative implemenation
+ - [ ] make alternative cli
 
 **Extra Credit**
 
