@@ -15,4 +15,4 @@ This repo is for a RPN Calculator Exercise.
 
 
 
-![screen shot using api](https://www.dropbox.com/s/07o1i9n9z1nfmgi/Screenshot%202016-02-19%2009.08.09.png)
+![screen shot using api](https://raw.githubusercontent.com/meantheory/rpn/master/Screenshot.2016-02-19.09.08.09.png)
