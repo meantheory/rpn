@@ -13,7 +13,10 @@ def rpn(*args):
 			# a string that can not be parse by these funcs.
 			return float(n) if '.' in n else int(n)
 
-		return n
+		elif isinstance(n, (int, float)):
+			return n
+		else:
+			raise ValueError('Unable to parse input')
 
 	# performs the math
 	def math(arg, x, y):

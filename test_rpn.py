@@ -36,6 +36,14 @@ def test_weird_chars():
 		# recognize it as an operator and blow up 
 		assert rpn(5, 3, '−') == 2
 
+def test_weird_input_array():
+	with pytest.raises(ValueError):
+		assert rpn([5, 3, '-']) == 2
+
+def test_bad_input_string():
+	with pytest.raises(ValueError):
+		assert rpn('5 3 -') == 2
+
 # example input from excercise 
 
 def test_example_1():
