@@ -8,8 +8,6 @@ def rpn(*args):
 	# function for returning numbers from input
 	def parsenum(n):
 
-		print('thing to parse', n)
-
 		if isinstance(n, str):
 			# this will throw a ValueError if you pass it 
 			# a string that can not be parse by these funcs.
