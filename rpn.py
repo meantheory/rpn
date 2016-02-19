@@ -8,6 +8,8 @@ def rpn(*args):
 	# function for returning numbers from input
 	def parsenum(n):
 
+		print('thing to parse', n)
+
 		if isinstance(n, str):
 			# this will throw a ValueError if you pass it 
 			# a string that can not be parse by these funcs.
@@ -15,13 +17,8 @@ def rpn(*args):
 
 		return n
 
-	def math(arg):
-		print(stack)
-		# pop 2 from the stack 
-		x = stack.pop()
-		y = stack.pop()
-
-		# perform op
+	# performs the math
+	def math(arg, x, y):
 
 		if arg is '+':
 			result = x + y
@@ -34,28 +31,28 @@ def rpn(*args):
 
 		return result
 
+	# go over input args
 	for arg in args:
 
 		if arg in operators:
-			result = math(arg)
+			# pop 2 from the stack 
+			y = stack.pop()
+			x = stack.pop()
+			result = math(arg, x, y)
+
 			# push back to stack 
 			stack.append(result)
-			break #continue to next arg
+			continue #continue to next arg
 
-		try:
-			stack.append(parsenum(arg))
-		except ValueError:
-			print('I only understand numbers, try again')
-			return		
+		stack.append(parsenum(arg))
 
+	# return answer
 	answer = stack.pop()
 	return answer
 
 def main():
-
-	x = rpn('2', 2, '+')
+	x = rpn(0, 2, '/')
 	print(x)
 	
-
 if __name__ == '__main__':
 	main()
