@@ -2,18 +2,23 @@
 import pytest
 from rpnalt import Calculator
 
+@pytest.fixture(scope="module")
+def c():
+	return Calculator()
+
+
 # basic, is it alive tests
 
-def test_addition():
-	c = Calculator()
+def test_addition(c):
+	
 	c.next('2')
 	c.next(2)
 	c.next('+')
 
 	assert c.answer() == 4
 
-def test_subtration():
-	c = Calculator()
+def test_subtration(c):
+
 	c.args([7, 3, '-'])
 	assert c.answer() == 4
 
@@ -21,52 +26,64 @@ def test_subtration():
 	assert c.answer() == 7
 
 
-# def test_multiply():
-# 	assert rpn('2', 2, '*') == 4
+def test_multiply(c):
 
-# def test_division():
-# 	assert rpn('8', '2', '/') == 4
+	c.args([2, 2, '*'])
+	assert c.answer() == 4
 
-# # now lets get more diabolical
+def test_division(c):
 
-# def test_bad_str():
-#  	with pytest.raises(ValueError):
-#  		rpn('this', 'bad', '+')
+	c.args([8, 2, '/'])
+	assert c.answer() == 4
+
+# now lets get more diabolical
+
+def test_bad_str(c):
+ 	with pytest.raises(ValueError):
+ 		c.args(['this', 'bad'])
 
 # def test_zero():
 # 	with pytest.raises(ZeroDivisionError):
 # 		rpn('2', '0', '/')
 
-def test_wikipedia_example():
-	c = Calculator()
+def test_wikipedia_example(c):
+
 	c.args([5, 1, 2, '+', 4, '*', '+', 3, '-'])
 	assert c.answer() == 14
 
-# def test_weird_chars():
-# 	with pytest.raises(ValueError):
-# 		# below looks normal but the minus symbol is 
-# 		# some different unicode symbol so it won't
-# 		# recognize it as an operator and blow up 
-# 		assert rpn(5, 3, '−') == 2
+def test_weird_chars(c):
+	with pytest.raises(ValueError):
+		# below looks normal but the minus symbol is 
+		# some different unicode symbol so it won't
+		# recognize it as an operator and blow up 
+		c.args([5, 3, '−']) == 2
 
-# def test_weird_input_array():
-# 	with pytest.raises(ValueError):
-# 		assert rpn([5, 3, '-']) == 2
+def test_weird_input_args(c):
+	with pytest.raises(TypeError):
+		c.args(5, 3, '-') == 2
 
-# def test_bad_input_string():
-# 	with pytest.raises(ValueError):
-# 		assert rpn('5 3 -') == 2
+def test_bad_input_string(c):
+	with pytest.raises(ValueError):
+		c.args('5 3 -') == 2
 
 # # example input from excercise 
 
-# def test_example_1():
-# 	assert rpn(5, 8, '+') == 13
+def test_example_1(c):
 
-# def test_example_2():
-# 	assert rpn(-3, -2, '*', 5, '+') == 11
+	c.args([5, 8, '+'])
+	assert c.answer() == 13
 
-# def test_example_3():
-# 	assert rpn(2, 9, 3, '+', '*') == 24
+def test_example_2(c):
 
-# def test_example_4():
-# 	assert rpn(20, 13, '-', 2, '/') == 3.5
+	c.args([-3, -2, '*', 5, '+'])
+	assert c.answer() == 11
+
+def test_example_3(c):
+
+	c.args([2, 9, 3, '+', '*'])
+	assert c.answer() == 24
+
+def test_example_4(c):
+
+	c.args([20, 13, '-', 2, '/']) 
+	assert c.answer() == 3.5
