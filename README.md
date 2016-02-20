@@ -3,9 +3,13 @@
 This repo is for a RPN Calculator Exercise.
 
  - rpn.py implements core logic
+ - rpnalt.py implements an alternate version of the rpn calculator that is more objecty
  - test_rpn.py implements unit tests with py.test
  - api.py makes a simple web api with flask
  - calc.py is a command line interface
+ - shunt.py is a hacked together implementation of shunting yard algorithm - it converts 
+   infix notation to postfix and runs the results through the module in rpn.py. This is 
+   not pretty code and has many potential errors.
 
 **Tasks**
 
