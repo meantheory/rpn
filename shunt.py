@@ -9,6 +9,9 @@ FUNCTIONS = ('pow')
 FUNCTION_ARG_SEP = (',')
 
 class Kind:
+	'''
+	The kinds of tokens
+	'''
 	operator = 'operator'
 	numeric = 'numeric'
 	alpha = 'alpha'
@@ -17,6 +20,9 @@ class Kind:
 	exhaust = 'exhausted'
 
 class Token:
+	'''
+	Holds token values and tests of values
+	'''
 
 	def __init__(self, kind, value):
 		self.kind = kind
@@ -46,14 +52,9 @@ class ShuntingYard:
 		https://en.wikipedia.org/wiki/Shunting-yard_algorithm
 	"""
 
-	
-
 	def __init__(self):
 		self.operator_stack = []
 		self.output_queue = []
-		# self.functions = ('pow')
-		# self.function_arg_sep = (',')
-		# self.operators = ('+', '-', '*', '/')
 
 	def peek(self):
 		if len(self.operator_stack) > 0:
@@ -129,7 +130,6 @@ class ShuntingYard:
 				# 	I did this above
 
 
-
 		# When there are no more tokens to read:
 		# 	While there are still operator tokens in the stack:
 		while len(self.operator_stack) > 0:
@@ -143,10 +143,10 @@ class ShuntingYard:
 			self._out(self.operator_stack.pop())
 
 
-		# test 
-		#print(self.output_queue)
-
 class Calculator:
+	'''
+	Takes input, tokenizes, shunts it, and then run on rpn calculator
+	'''
 
 	def __init__(self):
 		pass
@@ -155,6 +155,7 @@ class Calculator:
 
 		tokens = []
 
+		# Turn string input into a list of tokens
 		for char in calcinput:
 			tk = self.tokenizer(char)
 
@@ -166,13 +167,14 @@ class Calculator:
 			
 			tokens.append(tk)
 
+		# Convert infix notation into postfix notation
 		s = ShuntingYard()
 		s.feed(tokens)
 		args = []
 		for x in s.output_queue:
 			args.append(x.value)
 
-
+		# Run output through the reverse polish notation calculator
 		return rpn(*args)
 
 	def tokenizer(self, char):
