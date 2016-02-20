@@ -159,6 +159,9 @@ class Calculator:
 		for char in calcinput:
 			tk = self.tokenizer(char)
 
+			if not tk:
+				continue
+
 			if len(tokens) > 0:
 				ltk = tokens[-1]
 				if ltk.kind == tk.kind and tk.kind in (Kind.alpha, Kind.numeric):
@@ -194,7 +197,11 @@ class Calculator:
 		elif char.isalpha():
 			return Token(Kind.alpha, char)
 
-		raise ValueError('Unrecognized input')
+		elif char.isspace():
+			return None
+
+		else:
+			raise ValueError('Unrecognized input', char)
 
 if __name__ == '__main__':
 	
