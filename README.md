@@ -21,7 +21,7 @@ This repo is for a RPN Calculator Exercise.
 **Extra Credit**
 
  - [x] rpn api
- - [ ] dockerize api
+ - [x] dockerize api
 
 
 **Screenshot of API**
