@@ -27,20 +27,30 @@ class RPN:
 		elif arg is '/':
 			return x / y
 
+class CalculatorException(Exception):
+	pass
 
 class Calculator:
 
 	def __init__(self):
-		self._stack = []
+		self.clear()
 
 	def next(self, arg):
 		if RPN.isoperator(arg):
-			y, x = self._stack.pop(), self._stack.pop()
-			self._stack.append( RPN.math(arg, x, y) )
+			a = self.peek()
+			b = self.peek(2)
+			if a and b:
+				y, x = self._stack.pop(), self._stack.pop()
+				self._stack.append( RPN.math(arg, x, y) )
+			else:
+				raise CalculatorException('Can not find two operators to do an operation against')
 		else:
 			self._stack.append(RPN.parsenum(arg))
 
 		return self.peek()
+
+	def clear(self):
+		self._stack = []
 
 	def args(self, args):
 		for arg in args:
@@ -49,6 +59,9 @@ class Calculator:
 	def answer(self):
 		return self._stack.pop()
 
-	def peek(self):
-		return self._stack[-1]
+	def peek(self, n=1):
+		try:
+			return self._stack[-n]
+		except IndexError:
+			return False
 
