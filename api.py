@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
-from rpn import rpn 
+import rpncontroller
 
 
 app = Flask(__name__)
@@ -18,14 +18,21 @@ def v1rpnweb():
 	if request.json:
 		rpninput = request.json.get('input')
 
-		try:
-			result = rpn(*rpninput)
+		try: 
+			result = rpncontroller.dorpnalt(rpninput)
+			resp = jsonify(answer=result)
+		except IndexError:
+			resp = jsonify(error=rpncontroller.INDEX_ERROR)
+			resp.status_code = 400
 		except ValueError:
-			result = 'ValueError - Bad Input - Better Error Reporting In v2!!'
-
-		return jsonify(answer=result)
+			resp = jsonify(error=rpncontroller.VALUE_ERROR)
+			resp.status_code = 400
+		
+		return resp
 
 
 if __name__ == "__main__":
     #app.run()
+    app.debug = True
     app.run(host='0.0.0.0')
+
